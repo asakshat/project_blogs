@@ -8,6 +8,9 @@ const app = express();
 
 app.use(express.json());
 app.use(useCors);
+app.get('/', (req, res) => {
+res.send('Hello World');
+});
 
 // auth
 app.use('/auth', authRoute);
