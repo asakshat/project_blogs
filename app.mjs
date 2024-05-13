@@ -16,7 +16,7 @@ res.send('Hello World');
 // auth
 app.use('/auth', authRoute);
 
-app.get('/blog/getposts', (req, res) => {
+app.get('/blog/getposts', async (req, res) => {
   try {
     const response = await executeQuery('SELECT * FROM "Post"');
     res.status(200).json(response);
