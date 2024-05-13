@@ -30,12 +30,3 @@ export const blogUpdate = async (req, res) => {
         res.status(500).json({ message: 'Internal server error' });
     }
 };
-export const getBlog = async (req, res) => {
-  try {
-    const response = await executeQuery('SELECT * FROM "Post"');
-    res.status(200).json(response);
-  } catch (err) {
-    res.status(400).json({ error: err.message }); 
-  }
-
-}

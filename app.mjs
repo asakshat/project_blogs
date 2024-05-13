@@ -3,6 +3,7 @@ import authRoute from './routes/authRoute.mjs';
 import blogRoute from './routes/blogRoute.mjs';
 import { authenticateToken } from './middleware/authenticate.mjs';
 import { useCors } from './configs/cors.mjs';
+import { executeQuery } from './configs/database.mjs';
 
 const app = express();
 
@@ -15,6 +16,14 @@ res.send('Hello World');
 // auth
 app.use('/auth', authRoute);
 
+app.get('/blog/getposts', (req, res) => {
+  try {
+    const response = await executeQuery('SELECT * FROM "Post"');
+    res.status(200).json(response);
+  } catch (err) {
+    res.status(400).json({ error: err.message }); 
+  }
+});
 
 app.use(authenticateToken);
 app.use('/blog', blogRoute);
