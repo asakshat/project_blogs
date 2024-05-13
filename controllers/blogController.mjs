@@ -1,4 +1,5 @@
 import { blogPostFunction, blogUpdateFunction } from "../models/blogModel.mjs";
+import { executeQuery } from "../configs/database.mjs";
 
 export const blogPost = async (req, res) => {
     const { user_id, post_title, post_description, post_content } = req.body;
@@ -22,10 +23,19 @@ export const blogUpdate = async (req, res) => {
         return;
     }
     try {
-       const post = await blogUpdateFunction(post_id, post_title, post_description, post_content);
+       const post = await blogUpdateFunction(post_id , post_title, post_description, post_content);
       res.status(201).json({data : post});
     } catch (error) {
       console.error(error);
         res.status(500).json({ message: 'Internal server error' });
     }
 };
+export const getBlog = async (req, res) => {
+  try {
+    const response = await executeQuery('SELECT * FROM "Post"');
+    res.status(200).json(response);
+  } catch (err) {
+    res.status(400).json({ error: err.message }); 
+  }
+
+}
