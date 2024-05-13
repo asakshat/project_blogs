@@ -19,9 +19,9 @@ app.use('/auth', authRoute);
 app.get('/blog/getposts', async (req, res) => {
   try {
     const query = `
-      SELECT Post.*, User.username 
-      FROM Post 
-      INNER JOIN User ON Post.user_id = User.id
+    SELECT "User".username, "Post".*
+    FROM "Post"
+    INNER JOIN "User" ON "Post".user_id = "User".user_id;
     `;
     const response = await executeQuery(query);
     res.status(200).json(response);
