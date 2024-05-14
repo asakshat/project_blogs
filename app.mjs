@@ -30,8 +30,7 @@ app.get('/blog/getposts', async (req, res) => {
   }
 });
 
-app.use(authenticateToken);
-app.use('/blog', blogRoute);
+app.use('/blog', blogRoute,authenticateToken);
 
 
 app.listen(process.env.PORT, (req,res) => {
